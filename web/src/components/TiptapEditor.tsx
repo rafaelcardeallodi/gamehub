@@ -13,13 +13,19 @@ import Image from '@tiptap/extension-image'
 import StarterKit from '@tiptap/starter-kit'
 
 import { TiptapBar } from './TiptapBar'
+import { twMerge } from 'tailwind-merge'
 
 interface TiptapEditorProps {
   content?: string
+  className?: string
   onChange: (value: string) => void
 }
 
-export function TiptapEditor({ content, onChange }: TiptapEditorProps) {
+export function TiptapEditor({
+  content,
+  className,
+  onChange,
+}: TiptapEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -51,7 +57,12 @@ export function TiptapEditor({ content, onChange }: TiptapEditorProps) {
     <div>
       <TiptapBar editor={editor} />
 
-      <div className="max-h-[26rem] min-h-[10rem] overflow-y-auto overflow-x-hidden bg-zinc-900 px-4">
+      <div
+        className={twMerge(
+          'max-h-[26rem] min-h-[10rem] overflow-y-auto overflow-x-hidden bg-zinc-900 px-4',
+          className,
+        )}
+      >
         <EditorContent
           editor={editor}
           className="prose prose-invert h-full max-w-none prose-headings:font-medium prose-headings:text-zinc-100 prose-h1:text-2xl prose-p:text-zinc-200"

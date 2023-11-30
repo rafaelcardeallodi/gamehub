@@ -71,6 +71,7 @@ describe('Fetch Topic Comments (E2E)', () => {
           author: expect.objectContaining({ username: 'John Doe' }),
         }),
       ]),
+      totalCount: 2,
     })
   })
 })

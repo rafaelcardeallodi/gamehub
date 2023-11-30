@@ -10,7 +10,7 @@ import { PrismaNewsDetailsMapper } from '../mappers/prisma-news-details-mapper'
 
 @Injectable()
 export class PrismaNewsRepository implements NewsRepository {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async findById(id: number): Promise<News | null> {
     const news = await this.prisma.news.findUnique({
@@ -65,8 +65,8 @@ export class PrismaNewsRepository implements NewsRepository {
       include: {
         author: true,
       },
-      take: 20,
-      skip: (page - 1) * 20,
+      take: 50,
+      skip: (page - 1) * 50,
     })
 
     return news.map(PrismaNewsDetailsMapper.toDomain)

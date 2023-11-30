@@ -42,7 +42,11 @@ export class FetchTopicCommentsController {
     }
 
     const comments = result.value.comments
+    const totalCount = result.value.totalCount
 
-    return { comments: comments.map(CommentWithAuthorPresenter.toHTTP) }
+    return {
+      comments: comments.map(CommentWithAuthorPresenter.toHTTP),
+      totalCount,
+    }
   }
 }

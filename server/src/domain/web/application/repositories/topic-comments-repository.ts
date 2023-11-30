@@ -13,7 +13,10 @@ export abstract class TopicCommentsRepository {
   abstract findManyByTopicIdWithAuthor(
     topicId: number,
     params: PaginationParams,
-  ): Promise<CommentWithAuthor[]>
+  ): Promise<{
+    comments: CommentWithAuthor[]
+    totalCount: number
+  }>
 
   abstract create(topicComment: TopicComment): Promise<void>
   abstract delete(topicComment: TopicComment): Promise<void>

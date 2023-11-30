@@ -12,6 +12,7 @@ type FetchTopicCommentsUseCaseResponse = Either<
   null,
   {
     comments: CommentWithAuthor[]
+    totalCount: number
   }
 >
 
@@ -23,13 +24,14 @@ export class FetchTopicCommentsUseCase {
     page,
     topicId,
   }: FetchTopicCommentsUseCaseRequest): Promise<FetchTopicCommentsUseCaseResponse> {
-    const comments =
+    const { comments, totalCount } =
       await this.topicCommentsRepository.findManyByTopicIdWithAuthor(topicId, {
         page,
       })
 
     return right({
       comments,
+      totalCount,
     })
   }
 }

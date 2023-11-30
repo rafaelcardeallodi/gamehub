@@ -8,6 +8,7 @@ export class CommentWithAuthorPresenter {
       author: {
         id: comment.author.id.toValue(),
         username: comment.author.username,
+        createdAt: comment.author.createdAt,
       },
       createdAt: comment.createdAt,
       updatedAt: comment.updatedAt,

@@ -14,6 +14,7 @@ export class PrismaCommentWithAuthorMapper {
       author: {
         id: new UniqueEntityID(raw.author.id),
         username: raw.author.username,
+        createdAt: raw.author.createdAt,
       },
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,

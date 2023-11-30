@@ -1,8 +1,20 @@
 import { User } from 'lucide-react'
 
-export function Avatar() {
+interface AvatarProps {
+  size?: number
+  isRounded?: boolean
+}
+
+export function Avatar({ size = 40, isRounded = true }: AvatarProps) {
   return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500">
+    <div
+      className="flex items-center justify-center bg-blue-500"
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        borderRadius: isRounded ? '50%' : undefined,
+      }}
+    >
       <User />
     </div>
   )

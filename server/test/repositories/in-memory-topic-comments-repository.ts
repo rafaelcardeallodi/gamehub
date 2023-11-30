@@ -5,10 +5,11 @@ import { InMemoryUsersRepository } from './in-memory-users-repository'
 import { CommentWithAuthor } from '@/domain/web/enterprise/entities/value-objects/comment-with-author'
 
 export class InMemoryTopicCommentsRepository
-  implements TopicCommentsRepository {
+  implements TopicCommentsRepository
+{
   public items: TopicComment[] = []
 
-  constructor(private usersRepository: InMemoryUsersRepository) { }
+  constructor(private usersRepository: InMemoryUsersRepository) {}
 
   async findById(id: number) {
     const topicComment = this.items.find((item) => item.id.toValue() === id)
@@ -54,11 +55,17 @@ export class InMemoryTopicCommentsRepository
           author: {
             id: author.id,
             username: author.username,
+            createdAt: author.createdAt,
           },
         })
       })
 
-    return topicComments
+    return {
+      comments: topicComments,
+      totalCount: this.items.filter(
+        (item) => item.topicId.toValue() === topicId,
+      ).length,
+    }
   }
 
   async create(topicComment: TopicComment) {

@@ -19,6 +19,7 @@ const config: Config = {
         hero: '368px 1fr',
         'forum-and-recent-posts': '1fr 328px',
         'news-content': '1fr 904px',
+        'topic-view': '1fr 280px',
       },
       backgroundImage: {
         'gradient-hero':

@@ -7,6 +7,7 @@ export interface CommentWithAuthorProps {
   author: {
     id: UniqueEntityID
     username: string
+    createdAt: Date
   }
   createdAt: Date
   updatedAt?: Date | null

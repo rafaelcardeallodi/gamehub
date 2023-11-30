@@ -1,6 +1,5 @@
 import { Forum } from '@/components/Forum'
 import { Hero } from '@/components/Hero'
-import { OnlineMembers } from '@/components/OnlineMembers'
 import { RecentNews } from '@/components/RecentNews'
 
 import { api } from '@/data/api'

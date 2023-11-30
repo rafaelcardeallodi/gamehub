@@ -20,7 +20,7 @@ export function Button({
     <button
       className={twMerge(
         clsx(
-          'flex h-8  items-center justify-center px-2.5 uppercase text-white transition-colors disabled:opacity-60',
+          'flex h-8 items-center justify-center px-2.5 uppercase text-white transition-colors disabled:opacity-60',
           {
             'bg-blue-500 font-semibold enabled:hover:bg-blue-600':
               variant === 'primary',

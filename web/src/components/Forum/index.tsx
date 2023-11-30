@@ -7,7 +7,7 @@ import { ForumItem } from './ForumItem'
 import { api } from '@/data/api'
 import { Pagination } from '../Pagination'
 
-interface Topic {
+export interface Topic {
   id: string
   title: string
   excerpt: string

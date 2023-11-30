@@ -9,7 +9,7 @@ import { PrismaCommentWithAuthorMapper } from '../mappers/prisma-comment-with-au
 
 @Injectable()
 export class PrismaTopicCommentsRepository implements TopicCommentsRepository {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async findById(id: number): Promise<TopicComment | null> {
     const topicComment = await this.prisma.comment.findUnique({
@@ -37,8 +37,8 @@ export class PrismaTopicCommentsRepository implements TopicCommentsRepository {
       orderBy: {
         createdAt: 'desc',
       },
-      take: 20,
-      skip: (page - 1) * 20,
+      take: 10,
+      skip: (page - 1) * 10,
     })
 
     return topicComments.map(PrismaTopicCommentMapper.toDomain)
@@ -47,7 +47,10 @@ export class PrismaTopicCommentsRepository implements TopicCommentsRepository {
   async findManyByTopicIdWithAuthor(
     topicId: number,
     { page }: PaginationParams,
-  ): Promise<CommentWithAuthor[]> {
+  ): Promise<{
+    comments: CommentWithAuthor[]
+    totalCount: number
+  }> {
     const topicComments = await this.prisma.comment.findMany({
       where: {
         parentId: topicId,
@@ -57,13 +60,23 @@ export class PrismaTopicCommentsRepository implements TopicCommentsRepository {
         author: true,
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: 'asc',
       },
-      take: 20,
-      skip: (page - 1) * 20,
+      take: 10,
+      skip: (page - 1) * 10,
     })
 
-    return topicComments.map(PrismaCommentWithAuthorMapper.toDomain)
+    const totalCount = await this.prisma.comment.count({
+      where: {
+        parentType: 'TOPIC',
+        parentId: topicId,
+      },
+    })
+
+    return {
+      comments: topicComments.map(PrismaCommentWithAuthorMapper.toDomain),
+      totalCount,
+    }
   }
 
   async create(topicComment: TopicComment): Promise<void> {

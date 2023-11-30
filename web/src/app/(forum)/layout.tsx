@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import { Header } from '@/components/Header'
 
 import SessionProvider from '../../providers/SessionProvider'
+import { Footer } from '@/components/Footer'
 
 export default function ForumLayout({ children }: { children: ReactNode }) {
   return (
@@ -15,6 +16,8 @@ export default function ForumLayout({ children }: { children: ReactNode }) {
             {children}
           </div>
         </main>
+
+        <Footer />
       </div>
     </SessionProvider>
   )
