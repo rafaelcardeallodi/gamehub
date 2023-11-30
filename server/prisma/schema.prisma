@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+  role      UserRole @default(USER)
+
+  topics   Topic[]
+  comments Comment[]
+  news     News[]
+
+  @@map("users")
+}
+
+model Topic {
+  id        Int       @id @default(autoincrement())
+  title     String
+  slug      String    @unique
+  content   String
+  authorId  Int       @map("author_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  author User @relation(fields: [authorId], references: [id])
+
+  @@map("topics")
+}
+
+model News {
+  id        Int       @id @default(autoincrement())
+  title     String
+  slug      String    @unique
+  content   String
+  authorId  Int       @map("author_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  author User @relation(fields: [authorId], references: [id])
+
+  @@map("news")
+}
+
+enum CommentType {
+  TOPIC
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  content   String
+  authorId  Int       @map("author_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  parentId   Int         @map("parent_id")
+  parentType CommentType @map("parent_type")
+
+  author User @relation(fields: [authorId], references: [id])
+
+  @@map("comments")
+}

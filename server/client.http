@@ -1,0 +1,49 @@
+@baseUrl = http://localhost:3333
+@authToken = {{authenticate.response.body.access_token}}
+
+# @name create_account
+POST {{baseUrl}}/accounts
+Content-Type: application/json
+
+{
+  "username": "rafaellodi",
+  "email": "rafaelcardeallodi@hotmail.com",
+  "password": "123456"
+}
+
+###
+
+# @name authenticate
+POST {{baseUrl}}/sessions
+Content-Type: application/json
+
+{
+  "username": "rafaellodi",
+  "password": "123456"
+}
+
+###
+
+# @name get_official_by_name
+GET {{baseUrl}}/official?name=idiota136
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name create_topic
+POST {{baseUrl}}/topics
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "title": "Novo tópico 2",
+  "content": "Conteúdo do tópico"
+}
+
+###
+
+# @name fetch_recent_topics
+GET {{baseUrl}}/topics?page=1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
