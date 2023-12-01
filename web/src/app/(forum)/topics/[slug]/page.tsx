@@ -54,7 +54,9 @@ export default async function Topics({ params }: TopicsProps) {
     comments: Comment[]
     totalCount: number
   }> {
-    const response = await api(`/topics/${topicId}/comments`)
+    const response = await api(`/topics/${topicId}/comments`, {
+      cache: 'no-cache',
+    })
     const result = await response.json()
 
     return result
@@ -63,17 +65,11 @@ export default async function Topics({ params }: TopicsProps) {
   const topic = await getTopicBySlug(params.slug)
   const { comments, totalCount } = await fetchTopicComments(topic.id)
 
-  console.log(comments, totalCount)
-
   return (
     <div className="flex flex-col gap-8">
       <TopicContent topic={topic} />
 
-      <CommentsList
-        topicId={topic.id}
-        comments={comments}
-        totalComments={totalCount}
-      />
+      <CommentsList comments={comments} totalComments={totalCount} />
 
       {session && <CreateComment topicId={topic.id} />}
     </div>

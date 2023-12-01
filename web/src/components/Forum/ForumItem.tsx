@@ -4,12 +4,13 @@ import { MessagesSquare } from 'lucide-react'
 interface ForumItemProps {
   title: string
   description: string
+  url: string
 }
 
-export function ForumItem({ title, description }: ForumItemProps) {
+export function ForumItem({ title, description, url }: ForumItemProps) {
   return (
     <Link
-      href="/"
+      href={url}
       className="group relative flex w-full cursor-pointer items-center gap-4 bg-zinc-800 px-4 py-3 before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-blue-500 before:content-[''] hover:bg-zinc-700"
     >
       <span className="flex h-10 w-10 items-center justify-center bg-zinc-700 group-hover:bg-zinc-600">

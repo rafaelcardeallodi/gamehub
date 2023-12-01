@@ -26,7 +26,9 @@ export function Forum({ recentTopics }: ForumProps) {
   const [page, setPage] = useState<number>(1)
 
   async function fetchTopics(page: number) {
-    const response = await api(`/topics?page=${page}`)
+    const response = await api(`/topics?page=${page}`, {
+      cache: 'no-cache',
+    })
 
     const data = await response.json()
 
@@ -44,6 +46,7 @@ export function Forum({ recentTopics }: ForumProps) {
           key={topic.id}
           title={topic.title}
           description={topic.excerpt}
+          url={`/topics/${topic.slug}`}
         />
       ))}
 

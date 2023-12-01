@@ -1,38 +1,31 @@
-'use client'
-
-import { signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
+import { Avatar } from './Avatar'
 
 import { Button } from '@/components/Button'
 import { SignInModal } from '@/components/Modals/SignInModal'
 import { CreateAccountModal } from './Modals/CreateAccountModal'
-import { Avatar } from './Avatar'
+import { getServerSession } from 'next-auth'
 
-export function UserArea() {
-  const { data } = useSession()
+import { nextAuthOptions } from '@/app/api/auth/[...nextauth]/route'
+import { ButtonSignOut } from './ButtonSignOut'
 
-  async function handleLogout() {
-    await signOut()
-  }
+export async function UserArea() {
+  const session = await getServerSession(nextAuthOptions)
 
-  if (data) {
+  if (session) {
     return (
       <div className="flex items-center gap-4">
         <Avatar />
 
         <div>
-          <span>Olá, {data.user.username}</span>
+          <span>Olá, {session.user.username}</span>
           <div className="flex gap-3">
             <Link href="/topics/create" className="hover:underline">
               Postar tópico
             </Link>
 
-            <button
-              onClick={handleLogout}
-              className="hover:text-red-400 hover:underline"
-            >
-              Sair
-            </button>
+            <ButtonSignOut />
           </div>
         </div>
       </div>

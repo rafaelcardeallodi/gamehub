@@ -55,7 +55,7 @@ export function CreateComment({ topicId }: CreateCommentProps) {
     }
 
     reset()
-    toast.success('Tópico criado com sucesso!')
+    toast.success('Comentário criado com sucesso!')
     router.refresh()
   }
 

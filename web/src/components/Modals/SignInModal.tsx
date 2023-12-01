@@ -13,6 +13,7 @@ import { TextField } from '../TextField'
 import { Button } from '../Button'
 
 import 'react-toastify/dist/ReactToastify.css'
+import { useRouter } from 'next/navigation'
 
 const signInSchema = z.object({
   username: z.string().min(1, {
@@ -31,6 +32,8 @@ interface SignInModalProps {
 
 export function SignInModal({ children }: SignInModalProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const router = useRouter()
 
   const signInForm = useForm<SignInData>({
     resolver: zodResolver(signInSchema),
@@ -57,6 +60,7 @@ export function SignInModal({ children }: SignInModalProps) {
     toast.success('Usuário logado com sucesso!')
     setIsModalOpen(false)
     reset()
+    router.refresh()
   }
 
   return (
