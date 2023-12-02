@@ -21,7 +21,7 @@ model User {
   email     String   @unique
   password  String
   createdAt DateTime @default(now()) @map("created_at")
-  role      UserRole @default(USER)
+  role      UserRole @default(ADMIN)
 
   topics   Topic[]
   comments Comment[]
