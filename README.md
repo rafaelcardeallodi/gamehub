@@ -53,8 +53,9 @@ $ cd gamehub
 
 ---
 # Back-end
-# Instale as dependências
-$ cd server && npm install 
+# Instale as dependências (o comando cd server é para entrar na pasta do back-end, caso já esteja, não precisa executá-lo)
+$ cd server
+$ npm install 
 
 # Com o docker instalado na máquina, execute o docker-compose para fazer a criação do banco de dados
 $ docker-compose up -d
@@ -69,8 +70,9 @@ $ npm run start:dev
 
 -----
 # Front-end
-# Instale as dependências
-$ cd web && npm install
+# Instale as dependências (o comando cd web é para entrar na pasta do front-end, caso já esteja, não precisa executá-lo)
+$ cd web 
+$ npm install
 
 # Execute a Aplicação em Desenvolvimento
 $ npm run dev
